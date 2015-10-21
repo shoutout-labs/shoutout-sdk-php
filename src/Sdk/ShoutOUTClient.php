@@ -32,7 +32,7 @@ class ShoutOUTClient
         $this->signService = new  SignRequest($accessKey, $secretKey);
         $this->apikey = $apikey;
         $host = "lwel2lpoy3.execute-api.us-east-1.amazonaws.com";
-        $this->stage="sandbox";
+        $this->stage="prod";
         $this->baseUrl = "https://$host";
         $this->headers = array("host" => $host, "x-api-key" => $this->apikey, 'Content-Type' => 'application/json');
     }
