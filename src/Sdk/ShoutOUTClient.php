@@ -32,7 +32,7 @@ class ShoutOUTClient
         $this->signService = new  SignRequest($accessKey, $secretKey);
         $this->apikey = $apikey;
         $host = "lwel2lpoy3.execute-api.us-east-1.amazonaws.com";
-        $this->stage="prod";
+        $this->stage="v6";
         $this->baseUrl = "https://$host";
         $this->headers = array("host" => $host, "x-api-key" => $this->apikey, 'Content-Type' => 'application/json');
     }
@@ -48,23 +48,14 @@ class ShoutOUTClient
     }
 
     /**
-     * ShoutOUTClient post a message to one or more numbers.
-     * @param $message Message object
+     * ShoutOUTClient put a to a group.
+     * @param $contact Contact object
      * @return Response object
      */
-    public function messagesPost($message)
+    public function contactsPut($contact)
     {
-        return $this->submit("POST", "/$this->stage/messages",json_encode($message));
+        return $this->submit("PUT", "/$this->stage/contacts", json_encode($contact));
 
-    }
-
-    /**
-     * ShoutOUTClient create a group.
-     * @param $group Group object
-     * @return Response object
-     */
-    public function groupsPost($group){
-        return $this->submit("POST", "/$this->stage/groups",json_encode($group));
     }
 
     private function submit($method, $url, $body)

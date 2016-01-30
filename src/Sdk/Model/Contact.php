@@ -11,50 +11,50 @@ namespace ShoutOUT\SDK\Model;
 
 class Contact implements \JsonSerializable
 {
-    private $msisdn;
-    private $group_ids;
+    private $mobile_number;
+    private $user_id;
 
     /**
      * Contact constructor.
-     * @param $msisdn
+     * @param $mobile_number
      * @param $group_ids
      */
-    public function __construct($msisdn, $group_id)
+    public function __construct($mobile_number, $user_id)
     {
-        $this->msisdn = $msisdn;
-        $this->group_ids = array($group_id);
+        $this->mobile_number = $mobile_number;
+        $this->user_id = array($user_id);
     }
 
     /**
      * @return mixed
      */
-    public function getMsisdn()
+    public function getMobilenumber()
     {
-        return $this->msisdn;
+        return $this->mobile_number;
     }
 
     /**
-     * @param mixed $msisdn
+     * @param mixed $mobile_number
      */
-    public function setMsisdn($msisdn)
+    public function setMobilenumber($mobile_number)
     {
-        $this->msisdn = $msisdn;
+        $this->mobile_number = $mobile_number;
     }
 
     /**
      * @return mixed
      */
-    public function getGroupIds()
+    public function getUserid()
     {
-        return $this->group_ids;
+        return $this->user_id;
     }
 
     /**
-     * @param mixed $group_ids
+     * @param mixed $user_id
      */
-    public function setGroupIds($group_ids)
+    public function setUserid($user_id)
     {
-        $this->group_ids = $group_ids;
+        $this->user_id = $user_id;
     }
 
     /**
