@@ -37,7 +37,7 @@ class ShoutOUTClient
         $this->headers = array("host" => $host, "x-api-key" => $this->apikey, 'Content-Type' => 'application/json');
     }
     /**
-     * ShoutOUTClient post a to a group.
+     * ShoutOUTClient Create a new contact or replace existing one.
      * @param $contact Contact object
      * @return Response object
      */
@@ -48,13 +48,34 @@ class ShoutOUTClient
     }
 
     /**
-     * ShoutOUTClient put a to a group.
+     * ShoutOUTClient Get contact list.
+     * @return ContactList object
+     */
+    public function contactsListGet()
+    {
+        return $this->submit("GET", "/$this->stage/contacts/list",null);
+
+    }
+
+    /**
+     * ShoutOUTClient Create a new contact or update existing one.
      * @param $contact Contact object
      * @return Response object
      */
     public function contactsPut($contact)
     {
         return $this->submit("PUT", "/$this->stage/contacts", json_encode($contact));
+
+    }
+
+    /**
+     * ShoutOUTClient post a to a group.
+     * @param $activityRecord ActivityRecord object
+     * @return Response object
+     */
+    public function activitiesRecordsPost($activityRecord)
+    {
+        return $this->submit("POST", "/$this->stage/activities/records", json_encode($activityRecord));
 
     }
 
