@@ -9,8 +9,12 @@
 require_once './ShoutOUTClient.php';
 require_once './Model/Contact.php';
 
+$accessKey = 'ACCESS_KEY';
+$secretKey = 'SECRET_KEY';
+$apiKey = 'API_KEY';
 
-$client = new \ShoutOUT\SDK\ShoutOUTClient('AKIAIX4Z42EJFBN3GUCA', '0Miwpi3HIxwURgWV/VzYDeDZk+Yr3AGjABoYjXP+', 'DaEa0439CJ5FRa5ImeeR52R1e1JAyexF8sx8w38H');
+
+$client = new \ShoutOUT\SDK\ShoutOUTClient($accessKey,$secretKey,$apiKey);
 
 
 /* Create or Update Existing Contact */
