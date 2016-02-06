@@ -155,7 +155,6 @@ class SignRequest
                 }
             }
         }
-
         return substr($qs, 0, -1);
     }
 

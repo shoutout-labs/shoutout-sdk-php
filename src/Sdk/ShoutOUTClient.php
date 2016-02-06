@@ -7,6 +7,7 @@
  * Time: 19:14
  */
 namespace ShoutOUT\SDK;
+
 use ShoutOUT\SDK\Model\Response;
 
 require_once './SignRequest.php';
@@ -29,13 +30,14 @@ class ShoutOUTClient
 
     public function __construct($accessKey, $secretKey, $apikey)
     {
-        $this->signService = new  SignRequest($accessKey, $secretKey);
+        $this->signService = new SignRequest($accessKey, $secretKey);
         $this->apikey = $apikey;
         $host = "lwel2lpoy3.execute-api.us-east-1.amazonaws.com";
-        $this->stage="v6";
+        $this->stage = "v6";
         $this->baseUrl = "https://$host";
         $this->headers = array("host" => $host, "x-api-key" => $this->apikey, 'Content-Type' => 'application/json');
     }
+
     /**
      * ShoutOUTClient Create a new contact or replace existing one.
      * @param $contact Contact object
@@ -48,12 +50,25 @@ class ShoutOUTClient
     }
 
     /**
+     * ShoutOUTClient Get contact.
+     * @param $user_id
+     * @param $mobile_number
+     * @param $id
+     * @return Contact object
+     */
+    public function contactsGet($id, $user_id, $mobile_number)
+    {
+        $query = array("id" => $id, "user_id" => $user_id, "mobile_number" => $mobile_number);
+        return $this->submit("GET", "/$this->stage/contacts", null, $query);
+    }
+
+    /**
      * ShoutOUTClient Get contact list.
      * @return ContactList object
      */
     public function contactsListGet()
     {
-        return $this->submit("GET", "/$this->stage/contacts/list",null);
+        return $this->submit("GET", "/$this->stage/contacts/list", null);
 
     }
 
@@ -79,14 +94,18 @@ class ShoutOUTClient
 
     }
 
-    private function submit($method, $url, $body)
+    private function submit($method, $url, $body, $query = array())
     {
-        $headerList = $this->signService->calculateSignature($method, $url, $body, $this->headers, array());
+        $headerList = $this->signService->calculateSignature($method, $url, $body, $this->headers,$query);
         $headers = array();
         foreach ($headerList as $k => $v) {
             $headers[] = $k . ': ' . $v;
         }
         $headers[] = 'Content-Length:' . strlen($body);
+        if(!empty($query)){
+            $canonQuery = $this->getCanonicalizedQuery($query);
+            $url = $url."?".$canonQuery;
+        }
         $ch = curl_init($this->baseUrl . $url);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $body);
@@ -111,5 +130,28 @@ class ShoutOUTClient
         // echo "Verbose information:\n<pre>", htmlspecialchars($verboseLog), "</pre>\n";
         curl_close($ch);
         return new Response($httpcode, $body);
+    }
+
+    private function getCanonicalizedQuery(array $query)
+    {
+        unset($query['X-Amz-Signature']);
+
+        if (!$query) {
+            return '';
+        }
+
+        $qs = '';
+        ksort($query);
+        foreach ($query as $k => $v) {
+            if (!is_array($v)) {
+                $qs .= rawurlencode($k) . '=' . rawurlencode($v) . '&';
+            } else {
+                sort($v);
+                foreach ($v as $value) {
+                    $qs .= rawurlencode($k) . '=' . rawurlencode($value) . '&';
+                }
+            }
+        }
+        return substr($qs, 0, -1);
     }
 }
