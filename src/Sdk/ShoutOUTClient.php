@@ -7,6 +7,7 @@
  * Time: 19:14
  */
 namespace ShoutOUT\SDK;
+
 use ShoutOUT\SDK\Model\Response;
 
 require_once './SignRequest.php';
@@ -29,15 +30,27 @@ class ShoutOUTClient
 
     public function __construct($accessKey, $secretKey, $apikey)
     {
-        $this->signService = new  SignRequest($accessKey, $secretKey);
+        $this->signService = new SignRequest($accessKey, $secretKey);
         $this->apikey = $apikey;
         $host = "lwel2lpoy3.execute-api.us-east-1.amazonaws.com";
-        $this->stage="prod";
+        $this->stage = "v6";
         $this->baseUrl = "https://$host";
         $this->headers = array("host" => $host, "x-api-key" => $this->apikey, 'Content-Type' => 'application/json');
     }
+
     /**
-     * ShoutOUTClient post a to a group.
+     * ShoutOUTClient Send a message.
+     * @param $message Message object
+     * @return Response object
+     */
+    public function messagesPost($message)
+    {
+        return $this->submit("POST", "/$this->stage/messages", json_encode($message));
+
+    }
+
+    /**
+     * ShoutOUTClient Create a new contact or replace existing one.
      * @param $contact Contact object
      * @return Response object
      */
@@ -48,33 +61,62 @@ class ShoutOUTClient
     }
 
     /**
-     * ShoutOUTClient post a message to one or more numbers.
-     * @param $message Message object
-     * @return Response object
+     * ShoutOUTClient Get contact.
+     * @param $user_id
+     * @param $mobile_number
+     * @param $id
+     * @return Contact object
      */
-    public function messagesPost($message)
+    public function contactsGet($id, $user_id, $mobile_number)
     {
-        return $this->submit("POST", "/$this->stage/messages",json_encode($message));
+        $query = array("id" => $id, "user_id" => $user_id, "mobile_number" => $mobile_number);
+        return $this->submit("GET", "/$this->stage/contacts", null, $query);
+    }
+
+    /**
+     * ShoutOUTClient Get contact list.
+     * @return ContactList object
+     */
+    public function contactsListGet()
+    {
+        return $this->submit("GET", "/$this->stage/contacts/list", null);
 
     }
 
     /**
-     * ShoutOUTClient create a group.
-     * @param $group Group object
+     * ShoutOUTClient Create a new contact or update existing one.
+     * @param $contact Contact object
      * @return Response object
      */
-    public function groupsPost($group){
-        return $this->submit("POST", "/$this->stage/groups",json_encode($group));
+    public function contactsPut($contact)
+    {
+        return $this->submit("PUT", "/$this->stage/contacts", json_encode($contact));
+
     }
 
-    private function submit($method, $url, $body)
+    /**
+     * ShoutOUTClient post a to a group.
+     * @param $activityRecord ActivityRecord object
+     * @return Response object
+     */
+    public function activitiesRecordsPost($activityRecord)
     {
-        $headerList = $this->signService->calculateSignature($method, $url, $body, $this->headers, array());
+        return $this->submit("POST", "/$this->stage/activities/records", json_encode($activityRecord));
+
+    }
+
+    private function submit($method, $url, $body, $query = array())
+    {
+        $headerList = $this->signService->calculateSignature($method, $url, $body, $this->headers,$query);
         $headers = array();
         foreach ($headerList as $k => $v) {
             $headers[] = $k . ': ' . $v;
         }
         $headers[] = 'Content-Length:' . strlen($body);
+        if(!empty($query)){
+            $canonQuery = $this->getCanonicalizedQuery($query);
+            $url = $url."?".$canonQuery;
+        }
         $ch = curl_init($this->baseUrl . $url);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $body);
@@ -99,5 +141,28 @@ class ShoutOUTClient
         // echo "Verbose information:\n<pre>", htmlspecialchars($verboseLog), "</pre>\n";
         curl_close($ch);
         return new Response($httpcode, $body);
+    }
+
+    private function getCanonicalizedQuery(array $query)
+    {
+        unset($query['X-Amz-Signature']);
+
+        if (!$query) {
+            return '';
+        }
+
+        $qs = '';
+        ksort($query);
+        foreach ($query as $k => $v) {
+            if (!is_array($v)) {
+                $qs .= rawurlencode($k) . '=' . rawurlencode($v) . '&';
+            } else {
+                sort($v);
+                foreach ($v as $value) {
+                    $qs .= rawurlencode($k) . '=' . rawurlencode($value) . '&';
+                }
+            }
+        }
+        return substr($qs, 0, -1);
     }
 }
