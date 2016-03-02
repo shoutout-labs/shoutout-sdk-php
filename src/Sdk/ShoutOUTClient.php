@@ -39,6 +39,17 @@ class ShoutOUTClient
     }
 
     /**
+     * ShoutOUTClient Send a message.
+     * @param $message Message object
+     * @return Response object
+     */
+    public function messagesPost($message)
+    {
+        return $this->submit("POST", "/$this->stage/messages", json_encode($message));
+
+    }
+
+    /**
      * ShoutOUTClient Create a new contact or replace existing one.
      * @param $contact Contact object
      * @return Response object
