@@ -408,7 +408,7 @@ class DefaultApi
      *
      * .
      *
-     * @param object (required)
+     * @param \Swagger\Client\Model\Contact $contact  (required)
      * @param string $authorization  (optional)
      *
      * @return \Swagger\Client\Model\Contact
