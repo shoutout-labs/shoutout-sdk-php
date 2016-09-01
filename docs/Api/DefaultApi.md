@@ -23,8 +23,8 @@ require_once(__DIR__ . '/vendor/autoload.php');
 
 // Configure API key authorization: ShoutOUTCustomAuthorizer
 Swagger\Client\Configuration::getDefaultConfiguration()->setApiKey('Authorization', 'YOUR_API_KEY');
-// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-// Swagger\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('Authorization', 'Bearer');
+
+Swagger\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('Authorization', 'Apikey');
 
 $api_instance = new Swagger\Client\Api\DefaultApi();
 $activity = new \Swagger\Client\Model\Activity(); // \Swagger\Client\Model\Activity | 
