@@ -21,7 +21,7 @@ $apiClient = new ApiClient($config);
 
 $api_instance = new DefaultApi($apiClient);
 $activity_record = new ActivityRecord(array(
-    'user_id' =>'43',//Required.
+    'user_id' =>'xx',//Required. your account id
     //arbitrary attributes
     'activity_name' => 'User Signup',
     'activity_data'=>array(
