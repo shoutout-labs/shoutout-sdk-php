@@ -416,7 +416,7 @@ class DefaultApi
      */
     public function contactsPut($contact, $authorization = null)
     {
-        list($response) = $this->contactsPutWithHttpInfo($contact, $authorization);
+        list($response) = $this->contactsPutWithHttpInfo($contact->__toString(), $authorization);
         return $response;
     }
 
@@ -480,7 +480,6 @@ class DefaultApi
         if (strlen($apiKey) !== 0) {
             $headerParams['Authorization'] = $apiKey;
         }
-        
         // make the API Call
         try {
             list($response, $statusCode, $httpHeader) = $this->apiClient->callApi(
@@ -495,7 +494,7 @@ class DefaultApi
                 return array(null, $statusCode, $httpHeader);
             }
 
-            return array($this->apiClient->getSerializer()->deserialize($response, '\Swagger\Client\Model\Contact', $httpHeader), $statusCode, $httpHeader);
+            return array(json_encode($response), $statusCode, $httpHeader);
         } catch (ApiException $e) {
             switch ($e->getCode()) {
                 case 201:

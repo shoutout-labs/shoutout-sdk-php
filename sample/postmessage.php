@@ -21,7 +21,7 @@ $apiClient = new ApiClient($config);
 
 $api_instance = new DefaultApi($apiClient);
 $message = new Message(array(
-    'source' => 'ShoutOUT',
+    'source' => 'ShoutDEMO',
     'destinations' => ['94718121914'],
     'content' => array(
         'sms' => 'Sent via SMS Gateway'
@@ -30,6 +30,7 @@ $message = new Message(array(
 ));
 
 try {
+    echo $message->__toString();
     $result = $api_instance->messagesPost($message, $authorization);
     print_r($result);
 } catch (Exception $e) {
