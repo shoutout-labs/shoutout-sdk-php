@@ -126,11 +126,13 @@ class Contact implements ArrayAccess
      */
     public function __construct(array $data = null)
     {
-        foreach ($data as $key => $value) {
-            if(isset($data[$key])){
-                $this->container[$key] = $value;
-            }
-        }
+      if($data!=null) {
+          foreach ($data as $key => $value) {
+              if (isset($data[$key])) {
+                  $this->container[$key] = $value;
+              }
+          }
+      }
     }
 
     /**
@@ -206,10 +208,6 @@ class Contact implements ArrayAccess
      */
     public function __toString()
     {
-        if (defined('JSON_PRETTY_PRINT')) { // use JSON pretty print
-            return json_encode(\Swagger\Client\ObjectSerializer::sanitizeForSerialization($this), JSON_PRETTY_PRINT);
-        }
-
-        return json_encode(\Swagger\Client\ObjectSerializer::sanitizeForSerialization($this));
+       return json_encode($this->container);
     }
 }

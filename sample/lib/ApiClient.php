@@ -167,7 +167,6 @@ class ApiClient
         } elseif ((is_object($postData) or is_array($postData)) and !in_array('Content-Type: multipart/form-data', $headers)) { // json model
             $postData = json_encode(\Swagger\Client\ObjectSerializer::sanitizeForSerialization($postData));
         }
-
         $url = $this->config->getHost() . $resourcePath;
 
         $curl = curl_init();
@@ -220,7 +219,7 @@ class ApiClient
             error_log("[DEBUG] HTTP Request body  ~BEGIN~".PHP_EOL.print_r($postData, true).PHP_EOL."~END~".PHP_EOL, 3, $this->config->getDebugFile());
 
             curl_setopt($curl, CURLOPT_VERBOSE, 1);
-            curl_setopt($curl, CURLOPT_STDERR, fopen($this->config->getDebugFile(), 'a'));
+         //   curl_setopt($curl, CURLOPT_STDERR, fopen($this->config->getDebugFile(), 'a'));
         } else {
             curl_setopt($curl, CURLOPT_VERBOSE, 0);
         }
