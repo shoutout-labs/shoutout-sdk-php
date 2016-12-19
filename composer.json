@@ -1,19 +1,18 @@
 {
     "name": "shoutoutlabs/shoutout-sdk",
     "type": "library",
-    "description": "",
+    "description": "shoutout sdk for php",
     "keywords": [
-        "swagger",
         "php",
         "sdk",
         "api"
     ],
-    "homepage": "http://swagger.io",
+    "homepage": "http://getshoutout.com",
     "license": "Apache v2",
     "authors": [
         {
-            "name": "Swagger and contributors",
-            "homepage": "https://github.com/swagger-api/swagger-codegen"
+            "name": "Asanka Nissanka",
+            "homepage": "https://asankan.info"
         }
     ],
     "require": {
