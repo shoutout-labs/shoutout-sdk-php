@@ -1,5 +1,6 @@
 {
-    "name": "/shoutout/sdk",
+    "name": "shoutout/shoutout",
+    "type": "library",
     "description": "",
     "keywords": [
         "swagger",
