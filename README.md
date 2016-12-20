@@ -24,23 +24,26 @@ Please follow the [installation Procedure](#installation) and then run the follo
 
 ```php
 <?php
-require_once(__DIR__ . '/vendor/autoload.php');
 
-// Configure API key authorization: ShoutOUTCustomAuthorizer
-Swagger\Client\Configuration::getDefaultConfiguration()->setApiKey('Authorization', 'YOUR_API_KEY');
-// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-// Swagger\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('Authorization', 'Bearer');
+$apiKey = 'XXXXXXXXX.XXXXXXXXX.XXXXXXXXX';
 
-$api_instance = new Swagger\Client\Api\DefaultApi();
-$activity = new \Swagger\Client\Model\Activity(); // \Swagger\Client\Model\Activity | 
-$authorization = "authorization_example"; // string | 
+$config = Swagger\Client\Configuration::getDefaultConfiguration();
+$config->setApiKey('Authorization',$apiKey);
+$config->setApiKeyPrefix('Authorization', 'Apikey');
+$config->setSSLVerification(false);
 
-try {
-    $result = $api_instance->activitiesPost($activity, $authorization);
-    print_r($result);
-} catch (Exception $e) {
-    echo 'Exception when calling DefaultApi->activitiesPost: ', $e->getMessage(), PHP_EOL;
-}
+$apiInstance = new Swagger\Client\Api\DefaultApi();
+
+$message = new Swagger\Client\Model\Message(array(
+    'source' => 'ShoutDEMO',
+    'destinations' => ['94XXXXXXXXX'],
+    'content' => array(
+        'sms' => 'Sent via ShoutOUT Lite'
+    ),
+    'transports' => ['SMS']
+));
+
+$result = $apiInstance->messagesPost($message,$config);
 
 ?>
 ```
