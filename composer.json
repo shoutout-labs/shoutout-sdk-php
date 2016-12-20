@@ -8,11 +8,11 @@
         "api"
     ],
     "homepage": "http://getshoutout.com",
-    "license": "Apache v2",
+    "license": "MIT",
     "authors": [
         {
-            "name": "Asanka Nissanka",
-            "homepage": "https://asankan.info"
+            "name": "ShoutOUT Team",
+            "email": "dev@getshoutout.com"
         }
     ],
     "require": {
@@ -28,8 +28,5 @@
     },
     "autoload": {
         "psr-4": { "Swagger\\Client\\" : "lib/" }
-    },
-    "autoload-dev": {
-        "psr-4": { "Swagger\\Client\\" : "test/" }
     }
 }
