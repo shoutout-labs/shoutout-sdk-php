@@ -27,6 +27,8 @@ Please follow the [installation Procedure](#installation) and then run the follo
 ```php
 <?php
 
+require __DIR__ . '/vendor/autoload.php';
+
 $apiKey = 'XXXXXXXXX.XXXXXXXXX.XXXXXXXXX';
 
 $config = Swagger\Client\Configuration::getDefaultConfiguration();
