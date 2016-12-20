@@ -22,8 +22,12 @@ composer require shoutoutlabs/shoutout-sdk
 
 Please follow the [installation Procedure](#installation) and then run the following:
 
+#### Send Message
+
 ```php
 <?php
+
+require __DIR__ . '/vendor/autoload.php';
 
 $apiKey = 'XXXXXXXXX.XXXXXXXXX.XXXXXXXXX';
 
