@@ -1,5 +1,5 @@
 # ShoutOUT SDK for PHP
-__version: 1.0.0__
+__version: 1.9.0__
 
 ## Requirements
 
@@ -31,26 +31,30 @@ require __DIR__ . '/vendor/autoload.php';
 
 $apiKey = 'XXXXXXXXX.XXXXXXXXX.XXXXXXXXX';
 
-$config = Swagger\Client\Configuration::getDefaultConfiguration();
-$config->setApiKey('Authorization',$apiKey);
-$config->setApiKeyPrefix('Authorization', 'Apikey');
+$authorization = 'Apikey ' . $apiKey;
+$config = new Configuration();
+$config->setDebug(true);
 $config->setSSLVerification(false);
 
-$apiInstance = new Swagger\Client\Api\DefaultApi();
+$apiClient = new ApiClient($config);
 
-$message = new Swagger\Client\Model\Message(array(
+$api_instance = new DefaultApi($apiClient);
+$message = new Message(array(
     'source' => 'ShoutDEMO',
-    'destinations' => ['94XXXXXXXXX'],
+    'destinations' => ['94777123456'],
     'content' => array(
-        'sms' => 'Sent via ShoutOUT Lite'
+        'sms' => 'Sent via SMS Gateway'
     ),
     'transports' => ['SMS']
 ));
 
-$result = $apiInstance->messagesPost($message,$config);
+try {
+    echo $message->__toString();
+    $result = $api_instance->messagesPost($authorization,$message);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling DefaultApi->messagesPost: ', $e->getMessage(), PHP_EOL;
+}
 
 ?>
 ```
-
-
-
