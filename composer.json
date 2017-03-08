@@ -1,7 +1,6 @@
 {
     "name": "shoutoutlabs/shoutout-sdk",
     "type": "library",
-    "version": "1.9.1",
     "description": "shoutout sdk for php",
     "keywords": [
         "swagger",

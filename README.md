@@ -1,5 +1,5 @@
 # ShoutOUT SDK for PHP
-__version: 1.9.1__
+__version: 2.0.0__
 
 ## Requirements
 
