@@ -108,7 +108,7 @@ class DefaultApi
      * 
      *
      * @param string $authorization  (required)
-     * @param \Swagger\Client\Model\Activity $activity  (required)
+     * @param array $activity  (required)
      * @throws \Swagger\Client\ApiException on non-2xx response
      * @return \Swagger\Client\Model\Response
      */
@@ -124,7 +124,7 @@ class DefaultApi
      * 
      *
      * @param string $authorization  (required)
-     * @param \Swagger\Client\Model\Activity $activity  (required)
+     * @param array $activity  (required)
      * @throws \Swagger\Client\ApiException on non-2xx response
      * @return array of \Swagger\Client\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
@@ -205,7 +205,7 @@ class DefaultApi
      * 
      *
      * @param string $authorization  (required)
-     * @param \Swagger\Client\Model\Contacts $contacts  (required)
+     * @param array $contacts  (required)
      * @throws \Swagger\Client\ApiException on non-2xx response
      * @return \Swagger\Client\Model\Response
      */
@@ -221,7 +221,7 @@ class DefaultApi
      * 
      *
      * @param string $authorization  (required)
-     * @param \Swagger\Client\Model\Contacts $contacts  (required)
+     * @param array $contacts  (required)
      * @throws \Swagger\Client\ApiException on non-2xx response
      * @return array of \Swagger\Client\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
