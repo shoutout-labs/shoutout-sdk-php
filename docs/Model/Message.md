@@ -3,7 +3,6 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **string** |  | [optional] 
 **source** | **string** |  | 
 **destinations** | **string[]** |  | 
 **transports** | **string[]** |  | [optional] 
