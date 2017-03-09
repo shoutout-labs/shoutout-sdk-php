@@ -1,26 +1,18 @@
 <?php
 /**
  * Created by IntelliJ IDEA.
- * User: Madura
- * Date: 19/10/2016
- * Time: 13:12
+ * User: asankanissanka
+ * Date: 6/6/16
+ * Time: 9:34 PM
  */
 require __DIR__ . '/../autoload.php';
 
-use Swagger\Client\Api\DefaultApi;
-use Swagger\Client\ApiClient;
-use Swagger\Client\Configuration;
+use Swagger\Client\ShoutoutClient;
 
 $apiKey = 'XXXXXXXXX.XXXXXXXXX.XXXXXXXXX';
 
-$authorization = 'Apikey ' . $apiKey;//Replace <API_KEY> with your API Key
-$config = new Configuration();
-$config->setDebug(true);
-$config->setSSLVerification(false);
+$client = new ShoutoutClient($apiKey,true,false);
 
-$apiClient = new ApiClient($config);
-
-$api_instance = new DefaultApi($apiClient);
 
 $contact = array(
     'mobile_number' => '94777123456',//Required if not specified user_id
@@ -33,8 +25,8 @@ $contact = array(
 $contacts = array($contact);
 
 try {
-    $result = $api_instance->contactsPost($authorization, $contacts);
+    $result = $client->createContacts($contacts);
     print_r($result);
 } catch (Exception $e) {
-    echo 'Exception when calling DefaultApi->contactsPost: ', $e->getMessage(), PHP_EOL;
+    echo 'Exception when creating contacts ', $e->getMessage(), PHP_EOL;
 }
