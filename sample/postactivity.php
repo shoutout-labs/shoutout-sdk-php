@@ -1,26 +1,19 @@
 <?php
 /**
  * Created by IntelliJ IDEA.
- * User: Madura
- * Date: 19/10/2016
- * Time: 15:46
+ * User: asankanissanka
+ * Date: 6/6/16
+ * Time: 9:34 PM
  */
 require __DIR__ . '/../autoload.php';
 
-use Swagger\Client\Api\DefaultApi;
-use Swagger\Client\ApiClient;
-use Swagger\Client\Configuration;
+use Swagger\Client\ShoutoutClient;
 
 $apiKey = 'XXXXXXXXX.XXXXXXXXX.XXXXXXXXX';
 
-$authorization = 'Apikey ' . $apiKey;
-$config = new Configuration();
-$config->setDebug(true);
-$config->setSSLVerification(false);
+$client = new ShoutoutClient($apiKey,true,false);
 
-$apiClient = new ApiClient($config);
 
-$api_instance = new DefaultApi($apiClient);
 $activity = array(
     'userId' => '94777123456',//Required. your account id
     //arbitrary attributes
@@ -33,8 +26,8 @@ $activity = array(
 );
 
 try {
-    $result = $api_instance->activitiesPost($authorization, $activity);
+    $result = $client->createActivity($activity);
     print_r($result);
 } catch (Exception $e) {
-    echo 'Exception when calling DefaultApi->contactPut: ', $e->getMessage(), PHP_EOL;
+    echo 'Exception when creating activity ', $e->getMessage(), PHP_EOL;
 }
