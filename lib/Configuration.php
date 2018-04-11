@@ -101,7 +101,7 @@ class Configuration
      *
      * @var string
      */
-    protected $host = 'https://web.getshoutout.com/v8';
+    protected $host = 'https://api.getshoutout.com/coreservice';
 
     /**
      * Timeout (second) of the HTTP request, by default set to 0, no timeout

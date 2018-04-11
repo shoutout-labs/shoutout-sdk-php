@@ -72,11 +72,11 @@ class DefaultApi
     {
         if ($apiClient === null) {
             $apiClient = new ApiClient();
-            $apiClient->getConfig()->setHost('https://web.getshoutout.com/v8');
+            $apiClient->getConfig()->setHost('https://api.getshoutout.com/coreservice');
         }
 
         $this->apiClient = $apiClient;
-        $this->customHost = "https://amdimbh5tf.execute-api.us-east-1.amazonaws.com/v7";
+        $this->customHost = "https://api.getshoutout.com/coreservice";
     }
 
     /**
