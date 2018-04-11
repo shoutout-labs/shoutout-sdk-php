@@ -3,10 +3,13 @@
     "type": "library",
     "description": "shoutout sdk for php",
     "keywords": [
-        "swagger",
+        "shoutout",
         "php",
         "sdk",
-        "api"
+        "api",
+        "lite",
+        "sms",
+        "messages"
     ],
     "homepage": "http://getshoutout.com",
     "license": "MIT",
